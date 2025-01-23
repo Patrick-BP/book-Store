@@ -1,0 +1,102 @@
+[
+    {
+        "_id":1,
+        "title":"How to Grow Your Online Store",
+        "description":"Learn the best strategies to grow your online store in today's competitive market",
+        "category":"business",
+        "trending":true,
+        "coverImage":"book-1.png",
+        "oldPrice":29.99,
+        "newPrice":19.99
+    },
+    {
+        "_id":2,
+        "title":"The Power of Social Media",
+        "description":"Discuss the importance of social media in promoting your brand and driving sales",
+        "category":"seo",
+        "trending":false,
+        "coverImage":"book-2.png",
+        "oldPrice":39.99,
+        "newPrice":29.99
+    },
+    {
+        "_id":3,
+        "title":"The Art of SEO",
+        "description":"Learn how to optimize your website for search engines and attract more customers",
+        "category":"seo",
+        "trending":true,
+        "coverImage":"book-3.png",
+        "oldPrice":24.99,
+        "newPrice":19.99
+    },
+    {
+        "_id":4,
+        "title":"The Future of Online Marketing",
+        "description":"Discuss the latest trends and strategies for improving your online presence",
+        "category":"marketing",
+        "trending":false,
+        "coverImage":"book-4.png",
+        "oldPrice":39.99,
+        "newPrice":29.99
+    },
+    {
+        "_id":5,
+        "title":"The Power of Content Marketing",
+        "description":"Learn how to create engaging and high-quality content for your website and social media",
+        "category":"marketing",
+        "trending":true,
+        "coverImage":"book-5.png",
+        "oldPrice":34.99,
+        "newPrice":29.99
+    },
+    {
+        "_id":6,
+        "title":"The Power of Customer Service",
+        "description":"Discuss the importance of customer service and how to make it a top priority for your business",
+        "category":"customer service",
+        "trending":true,
+        "coverImage":"book-6.png",
+        "oldPrice":44.99,
+        "newPrice":39.99
+    },
+    {
+        "_id":7,
+        "title":"The Power of Email Marketing",
+        "description":"Learn how to create effective and engaging email campaigns to increase your email list",
+        "category":"marketing",
+        "trending":false,
+        "coverImage":"book-7.png",
+        "oldPrice":39.99,
+        "newPrice":29.99
+    },
+    {
+        "_id":8,
+        "title":"The Power of Branding",
+        "description":"Learn how to create a compelling and memorable brand identity for your business",
+        "category":"branding",
+        "trending":true,
+        "coverImage":"book-8.png",
+        "oldPrice":39.99,
+        "newPrice":29.99
+    },
+    {
+        "_id":9,
+        "title":"The Power of Pricing Strategy",
+        "description":"Learn how to effectively negotiate and price your products and services",
+        "category":"pricing",
+        "trending":false,
+        "coverImage":"book-9.png",
+        "oldPrice":44.99,
+        "newPrice":39.99
+    },
+    {
+        "_id":10,
+        "title":"The Power of Content Creation",
+        "description":"Learn how to create engaging and high-quality content for your website and social media",
+        "category":"content creation",
+        "trending":true,
+        "coverImage":"book-10.png",
+        "oldPrice":39.99,
+        "newPrice":29.99
+    }
+]
