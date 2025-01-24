@@ -1,11 +1,20 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getImgUrl } from '../../utils/getImgUrl'
+import { clearCart, removeFromCart } from '../../redux/features/cart/CartSlice';
 
 export default function CartPage() {
-    const cartItems = useSelector(state => state.cart.cartItems)
-    const handleClearCart = () => {}
+    const cartItems = useSelector(state => state.cart.cartItems);
+    const dispatch = useDispatch()
+    const totalprice = cartItems.reduce((acc, curr)=> curr.newPrice + acc , 0).toFixed(2);
+    
+    const handleRemoveProduct = (product) => {
+        dispatch(removeFromCart(product));
+    }
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    }
   return (
     <div className="flex mt-12 h-full flex-col overflow-hidden bg-white shadow-xl">
     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
@@ -51,7 +60,7 @@ export default function CartPage() {
                             <p className="text-gray-500"><strong>Qty:</strong> 1</p>
 
                             <div className="flex">
-                                <button  type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                <button  type="button" onClick={()=>handleRemoveProduct(item)} className="font-medium text-indigo-600 hover:text-indigo-500">
                                 Remove
                                 </button>
                             </div>
@@ -73,7 +82,7 @@ export default function CartPage() {
     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
       <div className="flex justify-between text-base font-medium text-gray-900">
         <p>Subtotal</p>
-        <p>${cartItems.reduce((acc, curr)=> curr.newPrice + acc , 0)}</p>
+        <p>${totalprice ? totalprice : 0.00}</p>
       </div>
       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
       <div className="mt-6">
