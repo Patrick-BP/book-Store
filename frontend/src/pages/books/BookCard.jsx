@@ -19,7 +19,7 @@ export default function BookCard({data}) {
                     className="flex flex-col sm:flex-row sm:items-center sm:h-85  sm:justify-center gap-4"
                 >
                     <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
-                        <Link to={`/books/${data._id}`}>
+                        <Link to={`/book/${data._id}`}>
                             <img
                                 src={getImgUrl(data.coverImage) }
                                 alt=""
@@ -29,7 +29,7 @@ export default function BookCard({data}) {
                     </div>
 
                     <div>
-                        <a href={`/books/${data._id}`}
+                        <a href={`/book/${data._id}`}
                         ><h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
                                 {data.title}
                             </h3></a>

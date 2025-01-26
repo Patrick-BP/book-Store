@@ -3,9 +3,9 @@ const { getBooks, addNewBook, getBook, updateBook, deleteBook  } = require('./bo
 const router = express.Router();
 
 router.get('/', getBooks); 
-router.post('/', addNewBook);
+router.post('/new-book', addNewBook);
 router.get('/:id', getBook);
-router.put('/:id', updateBook);
-router.delete('/:id', deleteBook);
+router.put('/edit/:id', updateBook);
+router.delete('/del/:id', deleteBook);
 
 module.exports = router;

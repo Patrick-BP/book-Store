@@ -17,14 +17,10 @@ export default function TopSellers() {
 
      const {data:books = []} = useFetchAllBooksQuery();
      
-     const [filter, setFilter] = useState(books);
+     const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
      
 
-     const handleFilterChange = (e) => {
-        
-        if(e.target.value === "Choose a genre") return setFilter([...books]);
-        setFilter(books.filter(book => book.category.toLowerCase() === e.target.value.toLowerCase()));
-     }
+     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book => book.category === selectedCategory);
 
 
     
@@ -32,7 +28,7 @@ export default function TopSellers() {
     <div className='py-10'>
         <h2 className='text-3xl font-semibold mb-6'>Top Sellers</h2>
         <div className='mb-8  items-center'>
-            <select className='border bg-[#EAEAEA]' onChange={handleFilterChange }>
+            <select className='border bg-[#EAEAEA]' onChange={(e) => setSelectedCategory(e.target.value)}>
                 {categories.map(category => <option key={category} value={category}>{category}</option>)}
             </select>
 
@@ -64,7 +60,7 @@ export default function TopSellers() {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       > 
-      {filter.length > 0 ? filter.map(book => (
+      {filteredBooks.length > 0 ? filteredBooks.map(book => (
          <SwiperSlide key={book._id}>
              <BookCard  data={book}/> 
          </SwiperSlide>

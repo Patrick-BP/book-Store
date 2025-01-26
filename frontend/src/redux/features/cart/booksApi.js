@@ -24,30 +24,38 @@ const booksApi = createApi({
             providesTags: ['Books']
         }),
         addBook: builder.mutation({
-            query: (book) => ({
-                url: '/',
+            query: (newbook) => ({
+                url: '/new-book',
                 method: 'POST',
-                body: book
-            })
+                body: newbook
+            }),
+            invalidatesTags: ['Books']
+
         }),
-        getBook: builder.query({
-            query: (id) => `/${id}`
+        fetchBookById: builder.query({
+            query: (id) => `/${id}`,
+            providesTags: (results, error, id) => [{type: 'Books', id}]
+
         }),
         updateBook: builder.mutation({
-            query: ({id, book}) => ({
-                url: `/${id}`,
+            query: ({id, ...rest}) => ({
+                url: `/edit/${id}`,
                 method: 'PUT',
-                body: book
+                body: rest,
+                headers: {
+                    'Content-Type': 'application/json'
+                }   
             })
         }),
         deleteBook: builder.mutation({
             query: (id) => ({
-                url: `/${id}`,
+                url: `/del/${id}`,
                 method: 'DELETE'
-            })
+            }),
+            invalidatesTags: ['Books']
         })
     })
 });
 
-export const {useFetchAllBooksQuery} = booksApi;
+export const {useFetchAllBooksQuery, useAddBookMutation, useFetchBookByIdQuery, useDeleteBookMutation, useUpdateBookMutation } = booksApi;
 export default booksApi;
