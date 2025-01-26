@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {useFetchAllBooksQuery} from '../../redux/features/cart/booksApi';
 
 
 // Import Swiper styles
@@ -10,18 +11,14 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import BookCard from '../books/BookCard';
 
+const categories = ["Choose a genre", "Business","marketing", "seo", "branding", "pricing", "content creation"  ]
+
 export default function TopSellers() {
-     const[books, setBooks] = useState([]);
-     const categories = ["Choose a genre", "Business","marketing", "seo", "branding", "pricing", "content creation"  ]
+
+     const {data:books = []} = useFetchAllBooksQuery();
+     
      const [filter, setFilter] = useState(books);
-     useEffect(() =>{
-        fetch("books.json")
-       .then(res => res.json())
-       .then(data => {
-        setBooks(data)
-        setFilter(data)
-    });
-     },[])
+     
 
      const handleFilterChange = (e) => {
         
