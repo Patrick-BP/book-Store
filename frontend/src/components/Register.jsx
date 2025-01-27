@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaGoogle } from "react-icons/fa";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext"
 export default function Register() {
-     const [message, setMessage] = useState("Please enter valid email and password")
+  const navigate = useNavigate();
+     const [message, setMessage] = useState("");
+     const { registerUser, signInWithGoogle} = useAuth()
        const {
          register,
          handleSubmit,
@@ -11,8 +14,24 @@ export default function Register() {
          formState: { errors },
        } = useForm()
      
-       const onSubmit = (data) => {
-        console.log(data)
+       const onSubmit = async (data) => {
+       try {
+        await registerUser(data.email, data.password);
+        alert("User registered successfully")
+
+       } catch (error) {
+        setMessage("Please provide a valid email AND password")
+       }
+    }
+    const handleGoogleSignIn = async () => {
+      try {
+        await signInWithGoogle();
+        alert("User logged in successfully with Google");
+        navigate("/");
+      } catch (error) {
+        setMessage("Failed to log in with Google");
+        
+      }
     }
   return (
     <div className='h-[calc(100vh-120px)]  flex justify-center items-center'>
@@ -60,7 +79,7 @@ export default function Register() {
             Already have an account? <Link className="text-blue-500 hover:text-blue-700" to="/login">Login</Link>
           </p>
           <div className='mt-4'>
-            <button className='w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none'>
+            <button onClick={handleGoogleSignIn} className='w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none'>
               <FaGoogle className="mr-2" />
               Login with Google
             </button>

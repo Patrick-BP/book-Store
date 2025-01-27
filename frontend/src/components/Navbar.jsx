@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaBars } from "react-icons/fa6";
 import { IoSearchOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
@@ -8,19 +8,31 @@ import { RiShoppingCart2Line } from "react-icons/ri";
 
 import avatarImg from "../assets/avatar.png";
 import { useSelector } from 'react-redux';
+import { useAuth } from '../context/AuthContext';
+
+
+
 
 const navigation = [
-    {name: "Home", href: "/"},
-    {name: "Products", href: "/products"},
-    {name: "About", href: "/about"},
-    {name: "Contact", href: "/contact"},
+    {name: "Dashboard", href: "/"},
+    {name: "Orders", href: "/orders"},
+    {name: "Cart", href: "/cart"},
+    {name: "Check Out", href: "/checkout"},
+    
 ]
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const cartItems = useSelector(state => state.cart.cartItems)
-    
-    const currentUser = false;
+    const {currentUser, logout} = useAuth();
+
+ const handleLogout = async () => {
+    await logout();
+    setIsDropdownOpen(false);
+    navigate("/login");
+}
+
   return (
     <header className='max-w-screen-2xl mx-auto px-4 py-6'>
         <nav className='flex justify-between items-center'>
@@ -47,6 +59,7 @@ const Navbar = () => {
                                                 <Link to={item.href} className='block px-4 py-2 text-sm hover:bg-gray-100'>{item.name}</Link>
                                             </li>
                                 })}
+                                <li onClick={handleLogout} className='block px-4 py-2 text-sm hover:bg-gray-100'>Logout</li>
                             </ul>
                         </div>
                     )
