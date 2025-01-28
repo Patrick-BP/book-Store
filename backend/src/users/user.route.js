@@ -5,7 +5,7 @@ const { login } = require('./user.controller');
 
 
 
-router.post('/admin', login);
+router.post('/login', login);
 
 
 module.exports = router;
