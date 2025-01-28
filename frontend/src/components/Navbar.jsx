@@ -13,19 +13,19 @@ import { useAuth } from '../context/AuthContext';
 
 
 
-const navigation = [
-    {name: "Dashboard", href: "/"},
-    {name: "Orders", href: "/orders"},
-    {name: "Cart", href: "/cart"},
-    {name: "Check Out", href: "/checkout"},
-    
-]
 
 const Navbar = () => {
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const cartItems = useSelector(state => state.cart.cartItems)
     const {currentUser, logout} = useAuth();
+    const navigation = [
+        {name: "Dashboard", href: "/"},
+        {name: "Orders", href: `/orders/${currentUser?.email}`},
+        {name: "Cart", href: "/cart"},
+        {name: "Check Out", href: "/checkout"},
+        
+    ]
 
  const handleLogout = async () => {
     await logout();
@@ -55,7 +55,7 @@ const Navbar = () => {
                         <div className='absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40'>
                             <ul className='py-2'>
                                 {navigation.map((item)=>{
-                                     return <li key={item.name} onClick={()=> isDropdownOpen(false)}>
+                                     return <li key={item.name} onClick={()=> setIsDropdownOpen(false)}>
                                                 <Link to={item.href} className='block px-4 py-2 text-sm hover:bg-gray-100'>{item.name}</Link>
                                             </li>
                                 })}

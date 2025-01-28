@@ -4,9 +4,10 @@ const orderSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     address: { 
+        street: { type: String, required: true },
         city: { type: String, required: true },
+        state: { type: String, required: true },
         country: { type: String, required: true  },
-        state: { type: String, required: true   },
         zipCode: { type: Number, required: true   },
     },
     phone: { type: Number, required: true },

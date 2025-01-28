@@ -13,7 +13,7 @@ const orderModel = require('./order.model');
 //     }  
 // }
 const createOrder = async (req, res) => {
-   
+   console.log(req.body)
     try{
         const newOrder = new orderModel(req.body)
         await newOrder.save()
@@ -21,6 +21,7 @@ const createOrder = async (req, res) => {
     }
     catch(error){
         console.log(error)
+        res.send({"message":"Order Faild"})
     }
     
 }
@@ -28,8 +29,16 @@ const createOrder = async (req, res) => {
 const getOrdersByEmail = async (req, res) => {
     const email = req.params.email.trim()
     try{
-        const response = await orderModel.findByEmail(email);
-        res.send(response)
+        const response = await orderModel.find({email}).sort({createdAt: -1}).populate({
+            path: 'productIds',
+            select: 'title newPrice coverImage', // Only fetch the name field
+        });
+        if(!response){
+            res.status(404).send({message: "No orders found for this email!"})
+            return;  // stop the function here if no orders found for this email.
+        }else{
+            res.send(response)
+        }
 
     }catch(error){
         console.log(error)
