@@ -1,18 +1,25 @@
 import React from 'react'
 import Loading from '../../components/Loading'
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import {HiViewGridAdd} from 'react-icons/hi'
 import {MdOutlineManageHistory, MdIncompleteCircle} from 'react-icons/md';
 import getBaseUrl from '../../utils/getBaseUrl';
+import {jwtDecode} from 'jwt-decode';
 
 
 export default function DashBoardLayout() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+ 
+    const decoded = jwtDecode(token);
+    
+  
    
     const handleLogout = () => {
         localStorage.removeItem('token')
-        history.push('/login')
+        navigate('/admin')
     };
  
   return (
@@ -73,8 +80,8 @@ export default function DashBoardLayout() {
           <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
             <span className="sr-only">User Menu</span>
             <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-              <span className="font-semibold">Grace Simmons</span>
-              <span className="text-sm text-gray-600">Lecturer</span>
+              <span className="font-semibold">{decoded?.username.toUpperCase()}</span>
+              <span className="text-sm text-gray-600">{decoded?.role}</span>
             </div>
             <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
               <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="user profile photo" className="h-full w-full object-cover"/>
@@ -93,9 +100,9 @@ export default function DashBoardLayout() {
               </svg>
             </button>
             <button
-            
-            className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
-              <span onClick={handleLogout} className="sr-only">Log out</span>
+            onClick={handleLogout}
+            className="relative p-2  text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
+              <span  className="sr-only">Log out</span>
               <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
   </svg>
@@ -110,13 +117,13 @@ export default function DashBoardLayout() {
             <h2 className="text-gray-600 ml-0.5">Book Store Inventory</h2>
           </div>
           <div className="flex flex-col md:flex-row items-start justify-end -mb-3">
-            <Link to="#" className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
+            <Link to="manage-books" className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
               <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>
               Manage Books
             </Link>
-            <Link to="#" className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3">
+            <Link to="add-new-book" className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3">
               <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
