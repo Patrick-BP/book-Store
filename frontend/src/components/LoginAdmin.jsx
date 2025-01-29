@@ -36,6 +36,7 @@ export default function LoginAdmin() {
 
         navigate('/dashboard');
     }else {
+      console.log(auth)
         setMessage(auth.message);
     }
    

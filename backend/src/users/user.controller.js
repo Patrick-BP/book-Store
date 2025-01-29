@@ -32,10 +32,10 @@ const login = async (req, res) => {
     try {
         const admin = await UserModel.findOne({ username });
         if (!admin) {
-            return res.status(404).send({ message: "Admin not found!" }); // Added return
+            return res.json({ message: "Admin not found!" }); // Added return
         }
         if (!bcrypt.compareSync(password, admin.password)) {
-            return res.status(401).send({ message: "Invalid password!" }); // Added return
+            return res.json({ message: "Invalid username/password!" }); // Added return
         }
         
         const token = jwt.sign(
